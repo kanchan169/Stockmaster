@@ -1,3 +1,22 @@
+# Node modules
 node_modules/
+
+# Environment variables
 .env
-/src/generated/prisma
+
+# Prisma client (optional, usually regenerated)
+node_modules/.prisma/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

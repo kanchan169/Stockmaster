@@ -10,8 +10,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
-
 // -------------------------------
 // MODELS
 // -------------------------------
@@ -25,16 +23,14 @@ model User {
   createdAt DateTime @default(now())
 }
 
-
-
 // PRODUCTS
 model Product {
   id          Int          @id @default(autoincrement())
   name        String
-  sku         String        @unique
+  sku         String       @unique
   category    String?
   unit        String?
-  createdAt   DateTime      @default(now())
+  createdAt   DateTime     @default(now())
 
   // Relations
   stocks      Stock[]
@@ -42,8 +38,6 @@ model Product {
   deliveries  Delivery[]
   adjustments Adjustment[]
 }
-
-
 
 // STOCK TABLE (per product)
 model Stock {
@@ -54,20 +48,17 @@ model Stock {
   product   Product  @relation(fields: [productId], references: [id])
 }
 
-
-
 // RECEIPTS (Incoming Goods)
 model Receipt {
   id         Int      @id @default(autoincrement())
   productId  Int
   quantity   Int
   supplier   String?
+  status     String   @default("DRAFT") // NEW FIELD for dashboard
   createdAt  DateTime @default(now())
 
   product    Product  @relation(fields: [productId], references: [id])
 }
-
-
 
 // DELIVERIES (Outgoing Goods)
 model Delivery {
@@ -75,12 +66,11 @@ model Delivery {
   productId  Int
   quantity   Int
   customer   String?
+  status     String   @default("DRAFT") // NEW FIELD for dashboard
   createdAt  DateTime @default(now())
 
   product    Product  @relation(fields: [productId], references: [id])
 }
-
-
 
 // STOCK ADJUSTMENTS (Mismatch Correction)
 model Adjustment {
@@ -90,6 +80,7 @@ model Adjustment {
   newQty     Int
   note       String?
   createdAt  DateTime @default(now())
+  status     String   @default("DONE") // optional, you can track adjustment status
 
   product    Product  @relation(fields: [productId], references: [id])
 }
