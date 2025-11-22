@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
@@ -8,7 +8,6 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-import testRoutes from "./routes/testRoutes.js";
-app.use("/api/test", testRoutes);
+app.use("/auth", authRoutes);
 
 export default app;
